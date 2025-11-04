@@ -12,8 +12,8 @@ library2 = "Boráros tér"
 
 @app.route('/')
 def index():
-    # books = scrape()
-    books = scape_dummy()
+    books = scrape()
+    # books = scape_dummy()
     return render_template('index.html', items=books)
 
 def scape_dummy(): 
@@ -44,3 +44,4 @@ if __name__ == '__main__':
 
 
     app.run(host="0.0.0.0", debug=True)
+

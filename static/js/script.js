@@ -1,0 +1,3 @@
+function reloadBooks() {
+  fetch("/reload");
+}

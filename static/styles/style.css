@@ -71,9 +71,8 @@ h5 {
 
 /* Library items inside a book */
 body > div > div > div {
-  margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px solid #ecf0f1;
+
 }
 
 /* Each "Library: ... - Status: ..." line */

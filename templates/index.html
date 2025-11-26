@@ -22,11 +22,11 @@
       <div>
         <div> 
           <h3>{{ book.name }} </h3>
-          <h5>{{ book.author }} </h5>
+          <h5>{{ book.author }}, {{ book.year }} ({{ book.shelf_number }})</h5>
         </div>
 
         <div> 
-        {% for printedBook in book.printedBookList %}
+        {% for printedBook in book.printed_books %}
       <div> 
               Library: {{ printedBook.address }} - Status: 
               <span class="{{ 'changed' if printedBook.changed else '' }}"> {{ printedBook.status }} </span>

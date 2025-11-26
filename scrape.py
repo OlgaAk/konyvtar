@@ -1,19 +1,35 @@
 import requests, re
 from bs4 import BeautifulSoup
+from models.Book import Book
 from models.PrintedBook import PrintedBook
 
-library_url = "https://saman.fszek.hu/WebPac/CorvinaWeb?action=onelong&showtype=longlong&recnum=1415430"
+library_url = "https://saman.fszek.hu/WebPac/CorvinaWeb?action=onelong&showtype=longlong&recnum="
 library1 = "Sárkányos Gyerekkönyvtár"
 library2 = "Boráros tér"
 
-def scrape() -> list[PrintedBook]:
-    url = library_url
+book_urls = ["1415430", "1435665", "1413839", "1413840"]
+
+def scrape() -> list[Book]:
+    books = []
+    for book_id in book_urls:
+        book = scrape_book(book_id)
+        books.append(book)
+    return books
+
+
+def scrape_book(book_id: str) -> Book:
+    url = library_url + book_id
     response = requests.get(url)
 
     response.raise_for_status()
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    books = []
+
+    name = soup.find_all('td', string=re.compile("Cím:"))[0].findNext('td').text
+    author = soup.find_all('td', string=re.compile("Szerző:"))[0].findNext('td').text
+    year = soup.find_all('td', string=re.compile("Megjelenés éve:"))[0].findNext('td').text
+    shelf_number = soup.find_all('td', string=re.compile("Cutter:"))[0].findNext('td').text
+    book = Book(name, author, year, shelf_number, [])
 
     target_tds = soup.find_all('td', string=re.compile("Sárkányos Gyerekkönyvtár|Boráros tér"))
 
@@ -21,7 +37,8 @@ def scrape() -> list[PrintedBook]:
         parent_tr = td.find_parent('tr')
         sibling_tds = parent_tr.find_all('td')
         sibling_td =  sibling_tds[7].text
-        book = PrintedBook(sibling_td, td.text)
-        books.append(book)
-
-    return books
+        printed_book = PrintedBook(sibling_td, td.text)
+        book.printed_books.append(printed_book)
+    
+    book.printed_books.sort(key=lambda x: x.status)
+    return book

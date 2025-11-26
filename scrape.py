@@ -1,12 +1,12 @@
 import requests, re
 from bs4 import BeautifulSoup
-from models.Book import Book
+from models.PrintedBook import PrintedBook
 
 library_url = "https://saman.fszek.hu/WebPac/CorvinaWeb?action=onelong&showtype=longlong&recnum=1415430"
 library1 = "Sárkányos Gyerekkönyvtár"
 library2 = "Boráros tér"
 
-def scrape() -> list[Book]:
+def scrape() -> list[PrintedBook]:
     url = library_url
     response = requests.get(url)
 
@@ -21,7 +21,7 @@ def scrape() -> list[Book]:
         parent_tr = td.find_parent('tr')
         sibling_tds = parent_tr.find_all('td')
         sibling_td =  sibling_tds[7].text
-        book = Book(sibling_td, td.text)
+        book = PrintedBook(sibling_td, td.text)
         books.append(book)
 
     return books

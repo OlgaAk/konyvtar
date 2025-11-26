@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, redirect
 import os
-from models.Book import Book
+from models.PrintedBook import PrintedBook
 from scrape import scrape
 from dummydata import get_dummy_books
 
@@ -14,7 +14,7 @@ def index():
     books = get_books()
     return render_template('index.html', items=books)
 
-def get_books() -> list[Book]:
+def get_books() -> list[PrintedBook]:
     books = load_from_cache()
     if (not books):
         if (mode == 'test'):
@@ -27,12 +27,12 @@ def get_books() -> list[Book]:
     check_status_change(books)
     return books
 
-def save_to_cache(books: list[Book]):
+def save_to_cache(books: list[PrintedBook]):
     session['books'] = [b.to_dict() for b in books]
 
-def load_from_cache()-> list[Book]:
+def load_from_cache()-> list[PrintedBook]:
     stored_books = session.get('books', []);
-    books = [Book(**b) for b in stored_books]  # recreate Book objects
+    books = [PrintedBook(**b) for b in stored_books]  # recreate Book objects
     print(books)
     return books
 
@@ -48,7 +48,7 @@ def scape_dummy():
 
 def check_status_change(books):
     if 'previuos_books' in session:
-        previuos_books = [Book(**b) for b in session['previuos_books']] 
+        previuos_books = [PrintedBook(**b) for b in session['previuos_books']] 
         for book in books:
             book_changed = True
             for previous_book in previuos_books:

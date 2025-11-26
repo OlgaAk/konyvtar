@@ -1,16 +1,12 @@
 from flask import Flask, render_template, session, redirect
-import requests, re, os
-from bs4 import BeautifulSoup
+import os
 from models.Book import Book
+from scrape import scrape
 
 
 
 app = Flask(__name__)
 app.secret_key = "supersecret"
-
-library_url = "https://saman.fszek.hu/WebPac/CorvinaWeb?action=onelong&showtype=longlong&recnum=1415430"
-library1 = "Sárkányos Gyerekkönyvtár"
-library2 = "Boráros tér"
 
 mode = os.getenv('APP_ENV', 'production')
 print(mode)
@@ -63,27 +59,6 @@ def check_status_change(books):
                     book_changed = False
             if book_changed:
                 book.changed = True
-    
-def scrape():
-    url = library_url
-    response = requests.get(url)
-
-    response.raise_for_status()
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    books = []
-
-    target_tds = soup.find_all('td', string=re.compile("Sárkányos Gyerekkönyvtár|Boráros tér"))
-
-    for td in target_tds:
-        parent_tr = td.find_parent('tr')
-        sibling_tds = parent_tr.find_all('td')
-        sibling_td =  sibling_tds[7].text
-        book = Book(sibling_td, td.text)
-        books.append(book)
-
-    return books
 
     
 if __name__ == '__main__':

@@ -2,20 +2,20 @@ from flask import Flask, render_template, session, redirect
 import os
 from models.Book import Book
 from scrape import scrape
-
-
+from dummydata import get_dummy_books
 
 app = Flask(__name__)
 app.secret_key = "supersecret"
-
 mode = os.getenv('APP_ENV', 'production')
 print(mode)
 
 @app.route('/')
 def index():
-    stored_books = session.get('books', []);
-    books = [Book(**b) for b in stored_books]  # recreate Book objects
-    print(books)
+    books = get_books()
+    return render_template('index.html', items=books)
+
+def get_books() -> list[Book]:
+    books = load_from_cache()
     if (not books):
         if (mode == 'test'):
             books = scape_dummy()
@@ -23,11 +23,18 @@ def index():
         else:
             books = scrape()
     books.sort(key=lambda x: x.status)
-    session['books'] = [b.to_dict() for b in books]
-    
+    save_to_cache(books)
     check_status_change(books)
-    
-    return render_template('index.html', items=books)
+    return books
+
+def save_to_cache(books: list[Book]):
+    session['books'] = [b.to_dict() for b in books]
+
+def load_from_cache()-> list[Book]:
+    stored_books = session.get('books', []);
+    books = [Book(**b) for b in stored_books]  # recreate Book objects
+    print(books)
+    return books
 
 @app.route('/reload')
 def reload():
@@ -36,18 +43,8 @@ def reload():
         del session['books']
     return redirect('/')
 
-
-# def scape_dummy(): 
-#     return [{'address': 'KK Sárkányos Gyerekkönyvtár, 1. szint', 'status': 'Lejár: 2025.11.06.'}, 
-#             {'address': 'KK Sárkányos Gyerekkönyvtár, 1. szint', 'status': 'Lejár: 2025.10.08.'}, 
-#              {'address': 'Boraros ter', 'status': 'Lejár: 2025.12.30'}, 
-#             {'address': 'KK Sárkányos Gyerekkönyvtár, 1. szint', 'status': 'Lejár: 2025.12.02.'}]
-
 def scape_dummy(): 
-    book1 = Book('Lejár: 2025.11.07', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
-    book2 = Book('Lejár: 2025.11.09', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
-    book3 = Book('Lejár: 2025.12.19', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
-    return [book1, book2, book3]
+    return get_dummy_books()
 
 def check_status_change(books):
     if 'previuos_books' in session:
@@ -62,7 +59,5 @@ def check_status_change(books):
 
     
 if __name__ == '__main__':
-
-
     app.run(host="0.0.0.0", debug=True)
 

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, redirect
 import os
 from models.PrintedBook import PrintedBook
+from models.Book import Book
 from scrape import scrape
 from dummydata import get_dummy_books
 
@@ -14,7 +15,7 @@ def index():
     books = get_books()
     return render_template('index.html', items=books)
 
-def get_books() -> list[PrintedBook]:
+def get_books() -> list[Book]:
     books = load_from_cache()
     if (not books):
         if (mode == 'test'):
@@ -22,15 +23,14 @@ def get_books() -> list[PrintedBook]:
             print('Running in test mode')
         else:
             books = scrape()
-    books.sort(key=lambda x: x.status)
-    save_to_cache(books)
-    check_status_change(books)
+    #save_to_cache(books)
+    #check_status_change(books)
     return books
 
-def save_to_cache(books: list[PrintedBook]):
+def save_to_cache(books: list[Book]):
     session['books'] = [b.to_dict() for b in books]
 
-def load_from_cache()-> list[PrintedBook]:
+def load_from_cache()-> list[Book]:
     stored_books = session.get('books', []);
     books = [PrintedBook(**b) for b in stored_books]  # recreate Book objects
     print(books)

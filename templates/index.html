@@ -10,14 +10,31 @@
     <script src="{{url_for('static', filename='js/script.js')}}"></script>
   </head>
   <body>
-    <button onclick="reloadBooks()">Reload</button>
+  <div class="top-bar">
     <h1>Library books</h1>
-    <h3>Gyogypuszi Piros Koenyv</h3>
-    <ul>
-      {% for item in items %}
-      <li>Library: {{ item.address }} - Status: 
-        <span class="{{ 'changed' if item.changed else '' }}"> {{ item.status }} </span></li>
-      {% endfor %}
-    </ul>
+    <button class="icon-button" onclick="reloadBooks()" title="Reload">
+      ⟳
+    </button>
+  </div>
+
+ <div>
+      {% for book in items %}
+      <div>
+        <div> 
+          <h3>{{ book.name }} </h3>
+          <h5>{{ book.author }} </h5>
+        </div>
+
+        <div> 
+        {% for printedBook in book.printedBookList %}
+      <div> 
+              Library: {{ printedBook.address }} - Status: 
+              <span class="{{ 'changed' if printedBook.changed else '' }}"> {{ printedBook.status }} </span>
+      </div> 
+        {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+</div>
   </body>
 </html>

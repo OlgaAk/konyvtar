@@ -1,58 +1,142 @@
+/* Global page styles */
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background: #f9fafb;
-  color: #333;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f5f7fb;
   margin: 0;
-  padding: 2rem;
-  line-height: 1.6;
+  padding: 0;
+  color: #222;
+}
+
+/* Container for whole content */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Top button + title */
+button {
+  margin-top: 20px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: box-shadow 0.2s ease, transform 0.1s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
 }
 
 h1 {
-  text-align: center;
+  margin: 16px 0 24px;
+  font-size: 28px;
   color: #2c3e50;
-  margin-bottom: 0.5rem;
 }
 
-h3 {
-  text-align: center;
-  color: #555;
-  font-weight: normal;
-  margin-top: 0;
-  margin-bottom: 2rem;
+/* Outer container for the books list */
+body > div {
+  width: 100%;
+  max-width: 900px;
+  padding: 0 16px 32px;
+  box-sizing: border-box;
 }
 
-ul {
-  list-style: none;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 0;
-}
-
-li {
-  background: white;
+/* Each book block */
+body > div > div {
+  background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  margin-bottom: 1rem;
-  padding: 1rem 1.5rem;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  margin-bottom: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-li:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+/* Book title and author */
+h3 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  color: #34495e;
 }
 
-.address {
+h5 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #7f8c8d;
+}
+
+/* Library items inside a book */
+body > div > div > div {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #ecf0f1;
+}
+
+/* Each "Library: ... - Status: ..." line */
+body > div > div > div > div {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+/* Status label */
+span {
   font-weight: 600;
-  color: #1a73e8;
 }
 
-.status {
-  float: right;
-  font-style: italic;
-  color: #555;
-}
-
+/* Highlight when status has changed */
 .changed {
-  font-weight: bold;
+  color: #c0392b;
+  background-color: #fdecea;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+body > div > div > div > div {
+  padding: 4px 0;
+}
+
+
+/* Top bar: title + reload icon */
+.top-bar {
+  width: 100%;
+  max-width: 900px;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* pushes title left, button right */
+}
+
+/* Icon button style */
+.icon-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.icon-button:hover {
+  background-color: #f4f6fb;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transform: translateY(-1px) rotate(10deg);
+}
+
+.icon-button:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }

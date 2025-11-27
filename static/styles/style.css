@@ -81,10 +81,6 @@ body > div > div > div > div {
   margin: 4px 0;
 }
 
-/* Status label */
-span {
-  font-weight: 600;
-}
 
 /* Highlight when status has changed */
 .changed {
@@ -138,4 +134,36 @@ body > div > div > div > div {
 .icon-button:active {
   transform: translateY(0) scale(0.96);
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.book-status {
+color: #957700;
+
+}
+
+@media (max-width: 600px) {
+
+  h1 {
+    margin-left: 6px;
+  }
+
+
+h3 {
+  font-size: 26px;
+}
+
+h5 {
+  font-size: 16px;
+}
+body > div > div > div > div {
+font-size: 16px;
+}
+.library {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.library-divider {
+  display: none;
+}
 }

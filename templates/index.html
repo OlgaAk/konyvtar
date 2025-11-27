@@ -1,6 +1,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loan books</title>
     <link
       rel="stylesheet"
@@ -10,31 +11,34 @@
     <script src="{{url_for('static', filename='js/script.js')}}"></script>
   </head>
   <body>
-  <div class="top-bar">
-    <h1>Library books</h1>
-    <button class="icon-button" onclick="reloadBooks()" title="Reload">
-      ⟳
-    </button>
-  </div>
+    <div class="top-bar">
+      <h1>Library books</h1>
+      <button class="icon-button" onclick="reloadBooks()" title="Reload">
+        ⟳
+      </button>
+    </div>
 
- <div>
+    <div>
       {% for book in items %}
       <div>
-        <div> 
-          <h3>{{ book.name }} </h3>
+        <div>
+          <h3>{{ book.name }}</h3>
           <h5>{{ book.author }}, {{ book.year }} ({{ book.shelf_number }})</h5>
         </div>
 
-        <div> 
-        {% for printedBook in book.printed_books %}
-      <div> 
-              Library: {{ printedBook.address }} - Status: 
-              <span class="{{ 'changed' if printedBook.changed else '' }}"> {{ printedBook.status }} </span>
-      </div> 
-        {% endfor %}
+        <div>
+          {% for printedBook in book.printed_books %}
+          <div>
+            <span class="library">Library: {{ printedBook.address }} </span>
+            <span class="library-divider"> - </span>
+            <span class="book-status" class="{{ 'changed' if printedBook.changed else '' }}">
+              Status: {{ printedBook.status }}
+            </span>
+          </div>
+          {% endfor %}
         </div>
       </div>
-    {% endfor %}
-</div>
+      {% endfor %}
+    </div>
   </body>
 </html>

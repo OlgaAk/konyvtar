@@ -2,14 +2,32 @@ from models.PrintedBook import PrintedBook
 from models.Book import Book
 
 def get_dummy_books() -> list[Book]: 
-    book = Book("Dummy Book", "Dummy Author", "2020", "B 40", [])
+    book = Book("Dummy Book some name lorem ipsum lorem ipsum", "Dummy Author", "2020", "B 40", [])
     printedBook1 = PrintedBook('Lejár: 2025.11.07', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
     printedBook2 = PrintedBook('Lejár: 2025.11.09', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
     printedBook3 = PrintedBook('Lejár: 2025.12.19', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
     book.printed_books.extend([printedBook1, printedBook2, printedBook3])
     book.printed_books.sort(key=lambda x: x.status)
     
-    book2 = Book("Another Dummy Book", "Another Dummy Author", "2021", "C 12", [])
-    printedBook4 = PrintedBook('Elérhető', 'KK Boráros tér, Fszek')
-    book2.printed_books.append(printedBook4)
-    return [book, book2]
+    book2 = Book("Dummy Book some name lorem ipsum lorem ipsum", "Dummy Author", "2020", "B 40", [])
+    printedBook4 = PrintedBook('Lejár: 2025.11.07', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    printedBook5 = PrintedBook('Lejár: 2025.11.09', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    printedBook6 = PrintedBook('Lejár: 2025.12.19', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    book2.printed_books.extend([printedBook4, printedBook5, printedBook6])
+    book2.printed_books.sort(key=lambda x: x.status)
+    
+    book3 = Book("Dummy Book some name lorem ipsum lorem ipsum", "Dummy Author", "2020", "B 40", [])
+    printedBook7 = PrintedBook('Lejár: 2025.11.07', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    printedBook8 = PrintedBook('Lejár: 2025.11.09', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    printedBook9 = PrintedBook('Lejár: 2025.12.19', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    book3.printed_books.extend([printedBook7, printedBook8, printedBook9])
+    book3.printed_books.sort(key=lambda x: x.status)
+    
+    book4 = Book("Dummy Book some name lorem ipsum lorem ipsum", "Dummy Author", "2020", "B 40", [])
+    printedBook10 = PrintedBook('Lejár: 2025.11.07', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    printedBook11 = PrintedBook('Lejár: 2025.11.09', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    printedBook12 = PrintedBook('Lejár: 2025.12.19', 'KK Sárkányos Gyerekkönyvtár, 1. szint')
+    book4.printed_books.extend([printedBook10, printedBook11, printedBook12])
+    book4.printed_books.sort(key=lambda x: x.status)
+    
+    return [book, book2, book3, book4]

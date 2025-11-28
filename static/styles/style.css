@@ -82,13 +82,6 @@ body > div > div > div > div {
 }
 
 
-/* Highlight when status has changed */
-.changed {
-  color: #c0392b;
-  background-color: #fdecea;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
 
 body > div > div > div > div {
   padding: 4px 0;
@@ -146,6 +139,15 @@ body > div > div > div > div {
   color: #777;
   margin-left: 4px;
   font-style: italic;
+}
+
+
+/* Highlight when status has changed */
+.changed {
+  color: #c0392b;
+  background-color: #fdecea;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 @media (max-width: 600px) {

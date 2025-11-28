@@ -1,0 +1,17 @@
+sudo nano /etc/systemd/system/webapp-scheduler.service
+
+[Unit]
+Description=Flask Scraper + Mailgun Scheduler
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/webapp
+Environment="MAILGUN_DOMAIN="
+Environment="MAILGUN_API_KEY="
+Environment="SENDER_EMAIL="
+ExecStart=/home/ubuntu/webapp/venv/bin/python3 /home/ubuntu/webapp/scheduler.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -137,7 +137,8 @@ body > div > div > div > div {
 }
 
 .book-status {
-color: #957700;
+  background-color: #e5e7eb; /* light gray */
+  color: #111827; 
 }
 
 .book-id {

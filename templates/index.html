@@ -35,8 +35,7 @@
             <span class="library">{{ printedBook.address }} </span>
             <span class="library-divider"> - </span>
             <span
-              class="book-status"
-              class="{{ 'changed' if printedBook.changed else '' }}"
+              class="book-status {% if printedBook.changed %}changed{% endif %}"
             >
               {{ printedBook.status }}
             </span>

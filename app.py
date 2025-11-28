@@ -7,7 +7,7 @@ from compare import compare_books
 
 app = Flask(__name__)
 app.secret_key = "supersecret"
-mode = os.getenv('APP_ENV', 'production')
+mode = os.getenv('APP_ENV', 'test')
 print(mode)
 
 @app.route('/')

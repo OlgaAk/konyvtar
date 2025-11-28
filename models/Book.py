@@ -1,5 +1,6 @@
 class Book:
-    def __init__(self, name, author, year, shelf_number, printed_books):
+    def __init__(self, id, name, author, year, shelf_number, printed_books):
+        self.id = id
         self.name = name
         self.author = author
         self.year = year

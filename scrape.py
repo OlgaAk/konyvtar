@@ -29,7 +29,7 @@ def scrape_book(book_id: str) -> Book:
     author = soup.find_all('td', string=re.compile("Szerző:"))[0].findNext('td').text
     year = soup.find_all('td', string=re.compile("Megjelenés éve:"))[0].findNext('td').text
     shelf_number = soup.find_all('td', string=re.compile("Cutter:"))[0].findNext('td').text
-    book = Book(name, author, year, shelf_number, [])
+    book = Book(book_id, name, author, year, shelf_number, [])
 
     target_tds = soup.find_all('td', string=re.compile("Sárkányos Gyerekkönyvtár|Boráros tér"))
 

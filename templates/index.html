@@ -23,16 +23,22 @@
       <div>
         <div>
           <h3>{{ book.name }}</h3>
-          <h5>{{ book.author }}, {{ book.year }} ({{ book.shelf_number }})</h5>
+          <h5>
+            {{ book.author }}, {{ book.year }} ({{ book.shelf_number }})
+            <span class="book-id">{{ book.id }}</span>
+          </h5>
         </div>
 
         <div>
           {% for printedBook in book.printed_books %}
           <div>
-            <span class="library">Library: {{ printedBook.address }} </span>
+            <span class="library">{{ printedBook.address }} </span>
             <span class="library-divider"> - </span>
-            <span class="book-status" class="{{ 'changed' if printedBook.changed else '' }}">
-              Status: {{ printedBook.status }}
+            <span
+              class="book-status"
+              class="{{ 'changed' if printedBook.changed else '' }}"
+            >
+              {{ printedBook.status }}
             </span>
           </div>
           {% endfor %}

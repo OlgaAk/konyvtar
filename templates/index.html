@@ -1,49 +1,6 @@
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loan books</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static',filename='styles/style.css') }}"
-    />
-    <script src="{{url_for('static', filename='js/script.js')}}"></script>
-  </head>
-  <body>
-    <div class="top-bar">
-      <h1>Library books</h1>
-    <!--  <button class="icon-button" onclick="reloadBooks()" title="Reload"> -->
-        ⟳
-      </button>
-    </div>
+ {% extends "base.html" %}
 
-    <div>
-      {% for book in items %}
-      <div>
-        <div>
-          <h3>{{ book.name }}</h3>
-          <h5>
-            {{ book.author }}, {{ book.year }} ({{ book.shelf_number }})
-            <span class="book-id">{{ book.id }}</span>
-          </h5>
-        </div>
+{% block content %}
 
-        <div>
-          {% for printedBook in book.printed_books %}
-          <div>
-            <span class="library">{{ printedBook.address }} </span>
-            <span class="library-divider"> - </span>
-            <span
-              class="book-status {% if printedBook.changed %}changed{% endif %}"
-            >
-              {{ printedBook.status }}
-            </span>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </body>
-</html>
+Home Page
+{% endblock %}

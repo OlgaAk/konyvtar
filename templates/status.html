@@ -1,0 +1,32 @@
+ {% extends "base.html" %}
+
+{% block content %}
+<div>
+      {% for book in items %}
+      <div class="book-block">
+        <div>
+          <h3>{{ book.name }}</h3>
+          <h5>
+            {{ book.author }}, {{ book.year }} ({{ book.shelf_number }})
+            <span class="book-id">{{ book.id }}</span>
+          </h5>
+        </div>
+
+        <div>
+          {% for printedBook in book.printed_books %}
+          <div>
+            <span class="library">{{ printedBook.address }} </span>
+            <span class="library-divider"> - </span>
+            <span
+              class="book-status {% if printedBook.changed %}changed{% endif %}"
+            >
+              {{ printedBook.status }}
+            </span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% endblock %}

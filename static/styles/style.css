@@ -1,7 +1,7 @@
 /* Global page styles */
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #f5f7fba8;
+  background-color: #fefefea8;
   margin: 0;
   padding: 0;
   color: #504e4e;
@@ -16,11 +16,9 @@ body {
 
 /* Top button + title */
 button {
-  margin-top: 20px;
-  padding: 8px 16px;
+
   border-radius: 6px;
   border: 1px solid #ccc;
-  background-color: #ffffff;
   cursor: pointer;
   font-size: 14px;
   transition: box-shadow 0.2s ease, transform 0.1s ease, background-color 0.2s ease;
@@ -47,7 +45,7 @@ body > div {
 }
 
 /* Each book block */
-body > div > div {
+.book-block {
   background-color: #ffffff;
   border-radius: 10px;
   margin-bottom: 16px;
@@ -97,6 +95,7 @@ body > div > div > div > div {
   display: flex;
   align-items: center;
   justify-content: space-between; /* pushes title left, button right */
+  margin-bottom: 20px;
 }
 
 /* Icon button style */
@@ -176,3 +175,51 @@ font-size: 18px;
   display: none;
 }
 }
+
+/* Top bar - GitHub style */
+        .top-bar {
+            background-color: #f6f8fa;
+color:#1f2328;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 50px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Left section: logo/title + nav links */
+        .nav-left {
+            display: flex;
+            align-items: center;
+    
+        }
+
+        .nav-left h1 {
+            font-size: 1.2em;
+            margin: 0;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        .nav-left a {
+                   color: #59636e;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 0.95em;
+        }
+
+ 
+
+        /* Right section: buttons/icons */
+        .nav-right button, .nav-right a {
+          
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            margin-left: 15px;
+            text-decoration: none;
+                    color: #59636e;
+        }
+
+

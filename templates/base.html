@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ url_for('static', filename='favicon.png') }}"
+    />
+    <title>LoanBookTrackr</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/style.css') }}"
+    />
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+  </head>
+  <body>
+    <div class="top-bar">
+      <!-- Left side: title + nav links -->
+      <div class="nav-left">
+        <h1>LoanBookTrackr</h1>
+      </div>
+
+      <!-- Right side: icons/buttons -->
+      <div class="nav-right">
+        <a href="{{ url_for('main.status') }}">Status</a>
+        <a href="{{ url_for('main.books') }}">Books</a>
+        <button onclick="location.reload()" title="Reload">⟳</button>
+      </div>
+    </div>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>

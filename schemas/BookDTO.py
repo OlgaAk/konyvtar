@@ -2,10 +2,10 @@ from schemas.PrintedBookDTO import PrintedBookDTO
 
 
 class BookDTO:
-    def __init__(self, id: str, name: str, author: str, 
+    def __init__(self, library_id: str, title: str, author: str, 
                  year: str, shelf_number: str, printed_books: list[PrintedBookDTO]):
-        self.id = id
-        self.name = name
+        self.library_id = library_id
+        self.title = title
         self.author = author
         self.year = year
         self.shelf_number = shelf_number
@@ -13,8 +13,8 @@ class BookDTO:
         
     def to_dict(self):
         return {
-            'id': self.id,
-            'name': self.name,
+            'library_id': self.library_id,
+            'title': self.title,
             'author': self.author,
             'year': self.year,
             'shelf_number': self.shelf_number,

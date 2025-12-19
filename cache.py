@@ -8,3 +8,6 @@ def load_from_cache()-> list[BookDTO]:
     stored_books = session.get('books', []);
     books = [BookDTO.from_dict(b) for b in stored_books] 
     return books
+
+def delete_cache():
+    session.clear()

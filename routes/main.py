@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, request
 import os
-from cache import load_from_cache, save_to_cache
-from db import db
+import cache
+import repository
 from models.Book import Book
 from schemas.BookDTO import BookDTO
-from scrape import scrape
+import scrape
 from dummydata import get_dummy_books
 from compare import compare_books
 
@@ -15,28 +15,19 @@ main_bp = Blueprint("main", __name__)
 
 @main_bp.route('/')
 def index():
-    #books = get_books()
-    print(os.path.abspath("data.db"))
-    book = Book(library_id = "1415431", 
-                title = "Dummy Book2 some name lorem ipsum lorem ipsum", 
-                author = "Dummy Author2", year = "2022", 
-                shelf_number = "B 42")
-    #db.session.add(book)
-    #db.session.commit()
-    books = db.session.execute(db.select(Book).order_by(Book.title)).scalars()
-    return render_template('index.html', items=books)
+    return redirect('/status')
 
-def get_books() -> list[BookDTO]:
-    chached_books = load_from_cache()
-    books = []
-    if (mode == 'test'):
-        books = scape_dummy()
-        print('Running in test mode')
-    else:
-        books = scrape()
-    save_to_cache(books)
-    compare_books(books, chached_books)
-    return books
+# def get_books() -> list[BookDTO]:
+#     chached_books = load_from_cache()
+#     books = []
+    # if (mode == 'test'):
+    #     books = scape_dummy()
+    #     print('Running in test mode')
+    # else:
+    #     books = scrape()
+    # save_to_cache(books)
+    # compare_books(books, chached_books)
+    # return books
 
 def scape_dummy(): 
     return get_dummy_books()
@@ -44,9 +35,42 @@ def scape_dummy():
 
 @main_bp.route("/books")
 def books():
-    return render_template("books.html")
+    books = repository.get_books()
+    return render_template('books.html', book_list=books)
 
 @main_bp.route("/status")
 def status():
-    books = db.session.execute(db.select(Book).order_by(Book.title)).scalars()
-    return render_template('status.html', items=books)
+    cached_books_with_statuses = cache.load_from_cache()
+    if cached_books_with_statuses:
+        print("Loaded books from cache")
+        return render_template('status.html', items=cached_books_with_statuses)
+    
+    books = repository.get_books()
+    books_with_statuses = scrape.scrape_statuses_for_books(books)
+    cache.save_to_cache(books_with_statuses)
+    print("Loaded books from internet")
+    return render_template('status.html', items=books_with_statuses)
+
+@main_bp.route("/refresh")
+def refresh():
+    cache.delete_cache()
+    return redirect("/status")
+
+
+@main_bp.route("/add",  methods=["POST"])
+def add_book():
+    book_id: str = request.form.get("book_id")
+    book: BookDTO = scrape.scrape_book(book_id)
+    if not book:
+        return redirect("/books")
+  
+    repository.add_book(Book.from_dto(book))
+    books: list[Book] = repository.get_books()
+    return render_template('books.html', book_list=books)
+
+
+@main_bp.route("/delete/<int:book_library_id>")
+def delete_book(book_library_id: str):
+    repository.remove_book(book_library_id)
+    books: list[Book] = repository.get_books()
+    return render_template('books.html', book_list=books)

@@ -1,6 +1,25 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<h2>Selected books</h2>
+<div class="form-container">
+<form class="add-book-form" action="/add" method="post">
+  <div>
+     <div class="form-row">
+    <label>Book ID</label>
+    <input type="text" name="book_id" placeholder="Enter ID" />
+    <button type="submit">Add</button>
+    </div>
+  </div>
+</form>
+</div>
 
-{% block content %}
-<h2>Books Page</h2>
-<p>List of books and add form can go here.</p>
-{% endblock %}
+<hr />
+
+{% for book in book_list %}
+<div class="book">
+  <p>
+    {{ book.library_id}} | {{ book.title }} | {{ book.author }} | {{ book.year
+    }} | {{ book.shelf_number }}
+  </p>
+  <a href="/delete/{{ book.library_id }}">Delete</a>
+</div>
+{% endfor %} {% endblock %}

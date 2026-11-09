@@ -8,7 +8,7 @@ library1 = "Sárkányos Gyerekkönyvtár"
 library2 = "Boráros tér"
 
 #book_urls = ["1415430", "1435665", "1413839", "1413840", "1385913"]
-book_urls = ["1385913", "1280238"]
+book_urls = ["1385913", "1280238", "927342"]
 
 def scrape() -> list[Book]:
     books = []

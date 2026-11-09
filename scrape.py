@@ -7,7 +7,7 @@ library_url = "https://saman.fszek.hu/WebPac/CorvinaWeb?action=onelong&showtype=
 library1 = "Sárkányos Gyerekkönyvtár"
 library2 = "Boráros tér"
 
-book_urls = ["1415430", "1435665", "1413839", "1413840"]
+book_urls = ["1415430", "1435665", "1413839", "1413840", "1385913"]
 
 def scrape() -> list[Book]:
     books = []

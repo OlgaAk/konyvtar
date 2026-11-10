@@ -13,3 +13,8 @@ sudo systemctl enable webapp-scheduler
 sudo systemctl start webapp-scheduler
 sudo systemctl status webapp-scheduler
 journalctl -u webapp-scheduler -f
+
+Books are stored in SQLite in `library.sqlite3` in the project directory.
+Set `DATABASE_PATH` to use a different database file. The library page supports
+adding, editing, and deleting books; use the reload button to refresh the
+catalog data.

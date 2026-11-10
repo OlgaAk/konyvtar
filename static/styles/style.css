@@ -39,7 +39,7 @@ h1 {
 }
 
 /* Outer container for the books list */
-body > div {
+.content {
   width: 100%;
   max-width: 900px;
   padding: 0 16px 32px;
@@ -47,7 +47,7 @@ body > div {
 }
 
 /* Each book block */
-body > div > div {
+.book-card {
   background-color: #ffffff;
   border-radius: 10px;
   margin-bottom: 16px;
@@ -70,20 +70,20 @@ h5 {
 }
 
 /* Library items inside a book */
-body > div > div > div {
+.book-card > div {
   padding-top: 8px;
 
 }
 
 /* Each "Library: ... - Status: ..." line */
-body > div > div > div > div {
+.book-card > div > div {
   font-size: 14px;
   margin: 4px 0;
 }
 
 
 
-body > div > div > div > div {
+.book-card > div > div {
   padding: 4px 0;
 }
 
@@ -134,6 +134,40 @@ body > div > div > div > div {
   color: #111827; 
 }
 
+.book-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+}
+
+.book-form label {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.book-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.messages {
+  padding: 0;
+  list-style: none;
+}
+
+.messages li {
+  background: #e8f4ea;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.delete-button {
+  color: #a93226;
+}
+
 .book-id {
     font-size: 0.8em;
   color: #777;
@@ -164,7 +198,7 @@ h3 {
 h5 {
   font-size: 18px;
 }
-body > div > div > div > div {
+.book-card > div > div {
 font-size: 18px;
 }
 .library {

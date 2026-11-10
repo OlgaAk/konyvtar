@@ -13,14 +13,36 @@
   <body>
     <div class="top-bar">
       <h1>Library books</h1>
-    <!--  <button class="icon-button" onclick="reloadBooks()" title="Reload"> -->
-        ⟳
-      </button>
+      <form action="{{ url_for('reload_books') }}" method="post">
+        <button class="icon-button" type="submit" title="Reload from catalog">⟳</button>
+      </form>
     </div>
 
-    <div>
+    <main class="content">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      <section class="book-card">
+        <h2>Add a book</h2>
+        <form action="{{ url_for('create_book') }}" method="post" class="book-form">
+          <label>Book ID <input name="id" required /></label>
+          <label>Title <input name="name" required /></label>
+          <label>Author <input name="author" required /></label>
+          <label>Year <input name="year" /></label>
+          <label>Shelf <input name="shelf_number" /></label>
+          <button type="submit">Add book</button>
+        </form>
+      </section>
+
       {% for book in items %}
-      <div>
+      <article class="book-card">
         <div>
           <h3>{{ book.name }}</h3>
           <h5>
@@ -42,8 +64,21 @@
           </div>
           {% endfor %}
         </div>
-      </div>
+        <details>
+          <summary>Edit book</summary>
+          <form action="{{ url_for('edit_book', book_id=book.id) }}" method="post" class="book-form">
+            <label>Title <input name="name" value="{{ book.name }}" required /></label>
+            <label>Author <input name="author" value="{{ book.author }}" required /></label>
+            <label>Year <input name="year" value="{{ book.year }}" /></label>
+            <label>Shelf <input name="shelf_number" value="{{ book.shelf_number }}" /></label>
+            <button type="submit">Save changes</button>
+          </form>
+          <form action="{{ url_for('delete_book', book_id=book.id) }}" method="post">
+            <button type="submit" class="delete-button">Delete book</button>
+          </form>
+        </details>
+      </article>
       {% endfor %}
-    </div>
+    </main>
   </body>
 </html>
